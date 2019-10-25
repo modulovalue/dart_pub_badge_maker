@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:dart_pub_badge_maker/badge_maker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 void main() => runApp(MyApp());
 
@@ -97,14 +98,11 @@ class __MainWidgetState extends State<_MainWidget> {
                 SizedBox(height: 24.0),
                 Text("Add this text to your README.md"),
                 SizedBox(height: 12.0),
+                MarkdownBody(data: generatedText),
                 RaisedButton(
                   child: Text("Copy to clipboard"),
                   onPressed: () {
-                    print("aaaaaaa");
-                    _copyToClipboardHack(generatedText);
-                    Clipboard.setData(ClipboardData(
-                      text: generatedText,
-                    ));
+                    Clipboard.setData(ClipboardData(text: generatedText));
                   },
                 ),
                 SizedBox(height: 24.0),
@@ -116,21 +114,4 @@ class __MainWidgetState extends State<_MainWidget> {
       )),
     );
   }
-}
-
-
-bool _copyToClipboardHack(String text) {
-  final textarea = new TextAreaElement();
-  document.body.append(textarea);
-  textarea.style.border = '0';
-  textarea.style.margin = '0';
-  textarea.style.padding = '0';
-  textarea.style.opacity = '0';
-  textarea.style.position = 'absolute';
-  textarea.readOnly = true;
-  textarea.value = text;
-  textarea.select();
-  final result = document.execCommand('copy');
-  textarea.remove();
-  return result;
 }
