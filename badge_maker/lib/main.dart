@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:js' as js;
 
 import 'package:dart_pub_badge_maker/badge_maker.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +27,17 @@ class _MainWidget extends StatefulWidget {
 }
 
 class __MainWidgetState extends State<_MainWidget> {
-  String githubUser = "";
-  String repo = "";
-  String twitterUser = "";
-  String mediumLink = "";
+  String githubUser;
+  String repo;
+  String twitterUser;
+  String mediumLink;
+  TextEditingController resultTextController;
 
-  String generatedText;
+  @override
+  void initState() {
+    super.initState();
+    resultTextController = TextEditingController(text: "");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +58,33 @@ class __MainWidgetState extends State<_MainWidget> {
                   fontSize: 42.0,
                 ),
               ),
-              SizedBox(height: 24.0),
+              SizedBox(height: 6.0),
+              GestureDetector(
+                onTap: () => js.context.callMethod("open", ["https://twitter.com/modulovalue"]),
+                child: Text(
+                  "Made by @modulovalue",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey[700],
+                    fontSize: 12.0,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              SizedBox(height: 4.0),
+              GestureDetector(
+                onTap: () => js.context.callMethod("open", ["https://github.com/modulovalue/dart_pub_badge_maker"]),
+                child: Text(
+                  "Github",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey[700],
+                    fontSize: 12.0,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              SizedBox(height: 36.0),
               TextField(
                 decoration: InputDecoration(hintText: "GitHub User"),
                 onChanged: (text) => setState(() => githubUser = text),
@@ -89,24 +121,38 @@ class __MainWidgetState extends State<_MainWidget> {
                         ).map((a) => a.makeMarkdownString()).join();
 
                         setState(() {
-                          generatedText = text;
+                          resultTextController.text = text;
                         });
                       },
               ),
-              if (generatedText != null) //
+              if (resultTextController.text != "") //
                 ...[
                 SizedBox(height: 24.0),
-                Text("Add this text to your README.md"),
-                SizedBox(height: 12.0),
-                MarkdownBody(data: generatedText),
-                RaisedButton(
-                  child: Text("Copy to clipboard"),
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: generatedText));
-                  },
+                Container(
+                  color: Colors.blue.withOpacity(0.1),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: MarkdownBody(data: resultTextController.text),
+                  ),
                 ),
                 SizedBox(height: 24.0),
-                Text(generatedText),
+                RaisedButton(
+                  child: Text("Select All"),
+                  onPressed: () {
+                    resultTextController.selection = TextSelection(
+                      baseOffset: 0,
+                      extentOffset: resultTextController.text.length,
+                    );
+                  },
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                    "Select All > Right Click > Copy > Paste that into your README.md"),
+                TextField(
+                  controller: resultTextController,
+                  decoration: InputDecoration(hintText: "Result"),
+                  onChanged: (text) => setState(() => mediumLink = text),
+                ),
               ],
             ],
           ),

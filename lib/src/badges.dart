@@ -57,7 +57,7 @@ Badge githubLicenseBadge(String user, String repo, BadgeStyle style) {
 
 Badge pubDevBadge(String package, BadgeStyle style) {
   return Badge(
-    altText: "License",
+    altText: "Pub.dev",
     link: "https://pub.dartlang.org/packages/$package",
     badgeContent: SmartShieldsBadge(
       link: "https://img.shields.io/pub/v/$package.svg",
@@ -94,7 +94,7 @@ Badge twitterBadge(String user, BadgeStyle style) {
 
 Badge githubFollowersBadge(String user, BadgeStyle style) {
   return Badge(
-    altText: "Twitter Follow",
+    altText: "GitHub Follow",
     link: "https://github.com/$user",
     badgeContent: SmartShieldsBadge(
       link: "https://img.shields.io/github/followers/$user",
