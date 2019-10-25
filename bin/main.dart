@@ -7,6 +7,5 @@ void main() {
     githubUser: "modulovalue",
     repo: "dart_filter",
     twitterUser: "modulovalue",
-    mediumLink: "https://www.google.de",
   ).map((a) => a.makeMarkdownString()).join());
 }

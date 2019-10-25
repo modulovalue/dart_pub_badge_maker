@@ -83,6 +83,7 @@ Badge githubStarsBadge(String user, String repo, BadgeStyle style) {
 Badge twitterBadge(String user, BadgeStyle style) {
   return Badge(
     altText: "Twitter Follow",
+    link: "https://twitter.com/$user",
     badgeContent: SmartShieldsBadge(
       link: "https://img.shields.io/twitter/follow/$user",
       style: style,
@@ -94,6 +95,7 @@ Badge twitterBadge(String user, BadgeStyle style) {
 Badge githubFollowersBadge(String user, BadgeStyle style) {
   return Badge(
     altText: "Twitter Follow",
+    link: "https://github.com/$user",
     badgeContent: SmartShieldsBadge(
       link: "https://img.shields.io/github/followers/$user",
       style: style,
