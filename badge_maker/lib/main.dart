@@ -70,7 +70,7 @@ class __MainWidgetState extends State<_MainWidget> {
               ),
               SizedBox(height: 8.0),
               TextField(
-                decoration: InputDecoration(hintText: "Medium Link (optional"),
+                decoration: InputDecoration(hintText: "Medium Link (optional)"),
                 onChanged: (text) => setState(() => mediumLink = text),
               ),
               SizedBox(height: 32.0),
