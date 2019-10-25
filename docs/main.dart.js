@@ -12394,7 +12394,7 @@ this.b=b
 this.c=c},
 GH:function GH(a){this.a=a},
 a3a:function(a,b,c,d,e,f){var u,t,s="https://github.com/",r=H.c([],[B.fl])
-if(b!=null)for(u=[new B.dX(b,"Medium",new R.IM(e,"blue","Medium","Read",C.v2)),new B.fm()],t=0;t<2;++t)r.push(u[t])
+if(b!=null&&b!=="")for(u=[new B.dX(b,"Medium",new R.IM(e,"blue","Medium","Read",C.v2)),new B.fm()],t=0;t<2;++t)r.push(u[t])
 r.push(new B.dX("https://travis-ci.com/"+H.d(a)+"/"+H.d(c),"Travis CI",new R.eV("https://img.shields.io/travis/com/"+H.d(a)+"/"+H.d(c)+"/master",e,C.v0)))
 r.push(new B.fm())
 r.push(new B.dX("https://codecov.io/gh/"+H.d(a)+"/"+H.d(c),"Codecov",new R.eV("https://img.shields.io/codecov/c/github/"+H.d(a)+"/"+H.d(c)+"/master",e,C.v_)))
@@ -12405,8 +12405,8 @@ r.push(new B.dX("https://pub.dartlang.org/packages/"+H.d(c),"Pub.dev",new R.eV("
 r.push(new B.fm())
 r.push(new B.dX(s+H.d(a)+"/"+H.d(c),"Github Stars",new R.eV("https://img.shields.io/github/stars/"+H.d(a)+"/"+H.d(c),e,C.iL)))
 r.push(new B.xH())
-if(f!=null){u=d
-u=[new B.dX("https://twitter.com/"+f,"Twitter Follow",new R.eV("https://img.shields.io/twitter/follow/"+f,u,C.v3)),new B.fm()]
+if(f!=null&&f!==""){u=d
+u=[new B.dX("https://twitter.com/"+H.d(f),"Twitter Follow",new R.eV("https://img.shields.io/twitter/follow/"+H.d(f),u,C.v3)),new B.fm()]
 t=0
 for(;t<2;++t)r.push(u[t])}u=d
 r.push(new B.dX(s+H.d(a),"GitHub Follow",new R.eV("https://img.shields.io/github/followers/"+H.d(a),u,C.iL)))
@@ -23353,7 +23353,7 @@ B.fm.prototype={
 rV:function(){return" "},
 $ifl:1}
 B.xH.prototype={
-rV:function(){return"\n"},
+rV:function(){return"\n\n"},
 $ifl:1}
 R.IM.prototype={
 AV:function(){var u=this

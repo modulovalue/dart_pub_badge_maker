@@ -34,5 +34,5 @@ class BadgeSpace implements BadgeItem {
 
 class BadgeNewLine implements BadgeItem {
   @override
-  String makeMarkdownString() => "\n";
+  String makeMarkdownString() => "\n\n";
 }

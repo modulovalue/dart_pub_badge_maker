@@ -11,7 +11,7 @@ List<BadgeItem> badgeListMaker({
   String twitterUser,
 }) {
   return [
-    if (mediumLink != null) //
+    if (mediumLink != null && mediumLink != "") //
       ...[
       mediumBadge(mediumLink, style),
       BadgeSpace(),
@@ -26,7 +26,7 @@ List<BadgeItem> badgeListMaker({
     BadgeSpace(),
     githubStarsBadge(githubUser, repo, style),
     BadgeNewLine(),
-    if (twitterUser != null) //
+    if (twitterUser != null && twitterUser != "") //
       ...[
       twitterBadge(twitterUser, socialStyle ?? style),
       BadgeSpace(),
