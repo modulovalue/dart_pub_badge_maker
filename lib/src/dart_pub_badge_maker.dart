@@ -25,7 +25,7 @@ List<BadgeItem> badgeListMaker({
     pubDevBadge(repo, style),
     BadgeSpace(),
     githubStarsBadge(githubUser, repo, style),
-    BadgeNewLine(),
+    BadgeSpace(),
     if (twitterUser != null && twitterUser != "") //
       ...[
       twitterBadge(twitterUser, socialStyle ?? style),
