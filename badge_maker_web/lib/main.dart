@@ -1,10 +1,9 @@
 import 'dart:html';
-import 'dart:js' as js;
 
 import 'package:dart_pub_badge_maker/badge_maker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:modulovalue_project_widgets/all.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,6 +32,13 @@ class __MainWidgetState extends State<_MainWidget> {
   String mediumLink;
   TextEditingController resultTextController;
 
+  bool showTravis = true;
+  bool showCodeCov = true;
+  bool showLicense = true;
+  bool showPubDev = true;
+  bool showGitHubRepo = true;
+  bool showGitHubProfile = true;
+
   @override
   void initState() {
     super.initState();
@@ -51,39 +57,8 @@ class __MainWidgetState extends State<_MainWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                "Badge maker for pub.dev packages",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 42.0,
-                ),
-              ),
-              SizedBox(height: 6.0),
-              GestureDetector(
-                onTap: () => js.context.callMethod("open", ["https://twitter.com/modulovalue"]),
-                child: Text(
-                  "Made by @modulovalue",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[700],
-                    fontSize: 12.0,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-              SizedBox(height: 4.0),
-              GestureDetector(
-                onTap: () => js.context.callMethod("open", ["https://github.com/modulovalue/dart_pub_badge_maker"]),
-                child: Text(
-                  "Github",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.grey[700],
-                    fontSize: 12.0,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
+              ...modulovalueTitle(
+                  "Badge maker for pub.dev packages", "dart_pub_badge_maker"),
               SizedBox(height: 36.0),
               TextField(
                 decoration: InputDecoration(hintText: "GitHub User"),
@@ -106,6 +81,66 @@ class __MainWidgetState extends State<_MainWidget> {
                 onChanged: (text) => setState(() => mediumLink = text),
               ),
               SizedBox(height: 32.0),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("Travis CI"),
+                  Checkbox(
+                    value: showTravis,
+                    onChanged: (v) => setState(() => showTravis = v),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("Codecov"),
+                  Checkbox(
+                    value: showCodeCov,
+                    onChanged: (v) => setState(() => showCodeCov = v),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("GitHub License"),
+                  Checkbox(
+                    value: showLicense,
+                    onChanged: (v) => setState(() => showLicense = v),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("pub.dev"),
+                  Checkbox(
+                    value: showPubDev,
+                    onChanged: (v) => setState(() => showPubDev = v),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("GitHub Repo"),
+                  Checkbox(
+                    value: showGitHubRepo,
+                    onChanged: (v) => setState(() => showGitHubRepo = v),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("GitHub Profile"),
+                  Checkbox(
+                    value: showGitHubProfile,
+                    onChanged: (v) => setState(() => showGitHubProfile = v),
+                  ),
+                ],
+              ),
               RaisedButton(
                 child: Text("Make"),
                 onPressed: githubUser == null || repo == null
@@ -135,19 +170,9 @@ class __MainWidgetState extends State<_MainWidget> {
                     child: MarkdownBody(data: resultTextController.text),
                   ),
                 ),
-                SizedBox(height: 24.0),
-                RaisedButton(
-                  child: Text("Select All"),
-                  onPressed: () {
-                    resultTextController.selection = TextSelection(
-                      baseOffset: 0,
-                      extentOffset: resultTextController.text.length,
-                    );
-                  },
-                ),
                 SizedBox(height: 8.0),
                 Text(
-                    "Select All > Right Click > Copy > Paste that into your README.md"),
+                    "Ctrl/Cmd+A > Ctrl/Cmd+C > Paste that into your README.md"),
                 TextField(
                   controller: resultTextController,
                   decoration: InputDecoration(hintText: "Result"),
@@ -159,5 +184,54 @@ class __MainWidgetState extends State<_MainWidget> {
         ),
       )),
     );
+  }
+
+  List<BadgeItem> badgeListMaker({
+    @required BadgeStyle style,
+    @required String githubUser,
+    @required String repo,
+    BadgeStyle socialStyle,
+    String mediumLink,
+    String twitterUser,
+  }) {
+    return [
+      if (mediumLink != null && mediumLink != "") //
+        ...[
+        mediumBadge(mediumLink, style),
+        BadgeSpace(),
+      ],
+      if (showTravis) //
+        ...[
+        travisCIBadge(githubUser, repo, style),
+        BadgeSpace(),
+      ],
+      if (showCodeCov) //
+        ...[
+        codecovBadge(githubUser, repo, style),
+        BadgeSpace(),
+      ],
+      if (showLicense) //
+        ...[
+        githubLicenseBadge(githubUser, repo, style),
+        BadgeSpace(),
+      ],
+      if (showPubDev) //
+        ...[
+        pubDevBadge(repo, style),
+        BadgeSpace(),
+      ],
+      if (showGitHubRepo) //
+        ...[
+        githubStarsBadge(githubUser, repo, style),
+        BadgeSpace(),
+      ],
+      if (twitterUser != null && twitterUser != "") //
+        ...[
+        twitterBadge(twitterUser, socialStyle ?? style),
+        BadgeSpace(),
+      ],
+      if (showGitHubProfile)
+        githubFollowersBadge(githubUser, socialStyle ?? style)
+    ];
   }
 }
