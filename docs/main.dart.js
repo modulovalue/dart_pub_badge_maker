@@ -42896,7 +42896,7 @@ gl:function(a){var u=this.a,t=u[0],s=u[1],r=u[2]
 u=u[3]
 return Math.sqrt(t*t+s*s+r*r+u*u)}}
 F.EC.prototype={
-U:function(a){return new S.qx(new F.uY(null),"Flutter Demo",X.WM(null,C.fI),null)}}
+U:function(a){return new S.qx(new F.uY(null),"Dart & Flutter Package Badge Maker for pub.dev libraries",X.WM(null,C.fI),null)}}
 F.uY.prototype={
 aK:function(){return new F.QG(C.q)}}
 F.QG.prototype={
